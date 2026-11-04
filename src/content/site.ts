@@ -10,6 +10,7 @@ export const site = {
   phoneDisplay: "+91 87917 63547",
   phoneTel: "+918791763547",
   whatsapp: "918791763547",
+  whatsappMessage: "Hello! I want to inquire about booking at Sunlit Valley Homestay.",
   mapsLink: "https://maps.app.goo.gl/TGRJPpnK6mFrC2nJA",
   mapsEmbed: "https://www.google.com/maps?q=Saree+Village,+Uttarakhand&output=embed",
   // Paste your Google Form link here later; the enquiry button will open it.
@@ -35,3 +36,7 @@ export const site = {
     { title: "Forest trails", text: "Walk through pine and deodar forests around the village." },
   ],
 };
+
+// Direct WhatsApp chat with the pre-filled enquiry message.
+export const whatsappUrl = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappMessage)}`;
+export const telUrl = `tel:${site.phoneTel}`;
