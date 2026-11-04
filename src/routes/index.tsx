@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
 });
 
 const nav = [
-  ["About", "about"], ["Rooms", "rooms"], ["Facilities", "facilities"], ["Gallery", "gallery"],
+  ["About", "about"], ["Rooms & Tariff", "rooms"], ["Facilities", "facilities"], ["Gallery", "gallery"],
   ["Explore", "explore"], ["Location", "location"], ["Contact", "contact"],
 ] as const;
 
@@ -70,7 +70,7 @@ function FloatingActions() {
   );
 }
 
-function Index() {
+export function Index() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -122,40 +122,99 @@ function Index() {
         </div>
       </section>
 
-      <section id="about" className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-2 md:items-center">
-        <div className="reveal"><Eyebrow>About Us</Eyebrow><H2>A peaceful stay in the heart of Saree Village</H2></div>
-        <p className="reveal text-lg leading-relaxed text-muted-foreground">{site.about}</p>
+      {/* ABOUT US ---------------------------------------------------------- */}
+      <section id="about" className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-2 md:items-start">
+        <div className="reveal">
+          <Eyebrow>{site.about.eyebrow}</Eyebrow>
+          <H2>{site.about.heading}</H2>
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{site.about.intro}</p>
+          <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border">
+            {site.about.quickFacts.map((f) => (
+              <div key={f.label} className="bg-card p-5">
+                <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">{f.label}</dt>
+                <dd className="mt-1 font-display text-2xl">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className="reveal">
+          {site.about.paragraphs.map((p, i) => (
+            <p key={i} className="mb-4 text-lg leading-relaxed text-muted-foreground">{p}</p>
+          ))}
+          <blockquote className="mt-6 rounded-xl border-l-4 border-accent bg-secondary p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">{site.about.hostNote.label}</p>
+            <p className="mt-3 font-display text-2xl italic leading-snug">{site.about.hostNote.text}</p>
+          </blockquote>
+        </div>
       </section>
 
+      {/* ROOMS & TARIFF ---------------------------------------------------- */}
       <section id="rooms" className="bg-secondary py-24">
         <div className="mx-auto max-w-7xl px-5">
-          <div className="reveal mb-12"><Eyebrow>Our Rooms</Eyebrow><H2>Rest in comfort</H2></div>
+          <div className="reveal mb-12">
+            <Eyebrow>{site.rooms.eyebrow}</Eyebrow>
+            <H2>{site.rooms.heading}</H2>
+            <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{site.rooms.note}</p>
+          </div>
           <div className="grid gap-8 md:grid-cols-2">
-            {site.rooms.map((r) => (
+            {site.rooms.list.map((r) => (
               <article key={r.name} className="reveal overflow-hidden rounded-xl bg-card shadow-soft">
-                <div className="overflow-hidden"><img src={r.image} alt={r.name} loading="lazy" width={1024} height={1024} className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" /></div>
+                <div className="overflow-hidden">
+                  <img src={r.image} alt={r.name} loading="lazy" width={1024} height={1024} className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" />
+                </div>
                 <div className="p-7">
-                  <h3 className="font-display text-3xl">{r.name}</h3>
-                  <p className="mt-2 text-muted-foreground">{r.description}</p>
-                  <div className="mt-6 flex items-center justify-between border-t pt-5">
-                    <span className="text-sm font-semibold text-primary">{r.price}</span>
-                    <a href={whatsappUrl} target="_blank" rel="noreferrer" className="text-sm font-semibold text-accent hover:underline">Enquire →</a>
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="font-display text-3xl">{r.name}</h3>
+                    <span className="shrink-0 text-sm font-semibold text-primary">{r.sleeps}</span>
                   </div>
+                  <p className="mt-2 text-muted-foreground">{r.description}</p>
+                  <ul className="mt-4 grid gap-1 text-sm text-muted-foreground sm:grid-cols-2">
+                    {r.features.map((f) => (
+                      <li key={f} className="flex gap-2"><span className="text-accent">•</span><span>{f}</span></li>
+                    ))}
+                  </ul>
+                  <dl className="mt-6 border-t">
+                    {r.tariff.map((t) => (
+                      <div key={t.label} className="flex items-center justify-between gap-4 border-b py-2.5 last:border-b-0">
+                        <dt className="text-sm text-muted-foreground">{t.label}</dt>
+                        <dd className="text-sm font-semibold text-primary">{t.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 inline-block text-sm font-semibold text-accent hover:underline">
+                    Enquire about this room →
+                  </a>
                 </div>
               </article>
             ))}
           </div>
+          <div className="reveal mt-10 rounded-xl border border-dashed bg-card p-7">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">Tariff notes</p>
+            <ul className="mt-3 grid gap-2 text-sm text-muted-foreground md:grid-cols-3">
+              {site.rooms.tariffNotes.map((n, i) => (
+                <li key={i} className="flex gap-2"><span className="text-accent">•</span><span>{n}</span></li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
+      {/* FACILITIES -------------------------------------------------------- */}
       <section id="facilities" className="mx-auto max-w-7xl px-5 py-24">
-        <div className="reveal mb-12"><Eyebrow>Facilities</Eyebrow><H2>What we offer</H2></div>
-        <div className="grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {site.facilities.map((f, i) => (
-            <div key={i} className="reveal bg-card p-8">
-              <span className="font-display text-4xl text-accent">0{i + 1}</span>
-              <h3 className="mt-4 font-display text-2xl">{f.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{f.text}</p>
+        <div className="reveal mb-12">
+          <Eyebrow>{site.facilities.eyebrow}</Eyebrow>
+          <H2>{site.facilities.heading}</H2>
+          <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{site.facilities.note}</p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {site.facilities.groups.map((g) => (
+            <div key={g.title} className="reveal rounded-xl border bg-card p-7">
+              <h3 className="font-display text-2xl">{g.title}</h3>
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                {g.items.map((it) => (
+                  <li key={it} className="flex gap-2"><span className="text-accent">•</span><span>{it}</span></li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -198,14 +257,56 @@ function Index() {
         <iframe title="Map" src={site.mapsEmbed} loading="lazy" className="reveal h-80 w-full rounded-xl border shadow-soft md:col-span-3 md:h-96" />
       </section>
 
+      {/* CONTACT ----------------------------------------------------------- */}
       <section id="contact" className="bg-primary py-24 text-primary-foreground">
-        <div className="mx-auto max-w-7xl px-5 text-center">
-          <div className="reveal"><Eyebrow>Contact Us</Eyebrow><H2>We'd love to host you</H2></div>
-          <a href={telUrl} className="reveal mt-6 block font-display text-4xl hover:text-accent md:text-5xl">{site.phoneDisplay}</a>
-          <p className="reveal mt-2 text-sm opacity-80">Phone &amp; WhatsApp</p>
-          <div className="reveal mt-8 flex flex-wrap justify-center gap-3">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="reveal text-center">
+            <Eyebrow>{site.contact.eyebrow}</Eyebrow>
+            <H2>{site.contact.heading}</H2>
+            <p className="mx-auto mt-4 max-w-xl opacity-85">{site.contact.intro}</p>
+          </div>
+
+          <div className="reveal mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {site.contact.blocks.map((b) => {
+              const href =
+                b.link === "phone" ? telUrl
+                : b.link === "whatsapp" ? whatsappUrl
+                : b.link === "maps" ? site.mapsLink
+                : b.link === "email" && !b.value.startsWith("[") ? `mailto:${b.value}`
+                : undefined;
+              const external = b.link === "whatsapp" || b.link === "maps";
+              const card = "rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-5";
+              const body = (
+                <>
+                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">{b.label}</p>
+                  <p className="mt-2 font-display text-xl">{b.value}</p>
+                  <p className="mt-1 text-xs opacity-75">{b.hint}</p>
+                </>
+              );
+              return href ? (
+                <a key={b.label} href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})} className={`${card} transition hover:-translate-y-0.5`}>
+                  {body}
+                </a>
+              ) : (
+                <div key={b.label} className={card}>{body}</div>
+              );
+            })}
+          </div>
+
+          <div className="reveal mt-10 flex flex-wrap justify-center gap-3">
             <a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire on WhatsApp</a>
             <a href={telUrl} className={`${btn} border border-primary-foreground/40`}>Call Now</a>
+          </div>
+
+          <div className="reveal mt-12 grid gap-4 md:grid-cols-2">
+            <div className="rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">How to reach us</p>
+              <p className="mt-3 text-sm leading-relaxed opacity-90">{site.contact.directions}</p>
+            </div>
+            <div className="rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Best time to call</p>
+              <p className="mt-3 text-sm leading-relaxed opacity-90">{site.contact.bestTime}</p>
+            </div>
           </div>
         </div>
       </section>

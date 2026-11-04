@@ -5,6 +5,19 @@ Object.defineProperty(window, "scrollTo", {
   value: () => {},
 });
 
+// jsdom has no IntersectionObserver; page components use it for scroll reveals.
+Object.defineProperty(window, "IntersectionObserver", {
+  writable: true,
+  value: class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() {
+      return [];
+    }
+  },
+});
+
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({
