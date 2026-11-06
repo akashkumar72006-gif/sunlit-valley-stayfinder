@@ -13,7 +13,7 @@ function stringsIn(value: unknown): string[] {
 describe("Site content", () => {
   it("shows the confirmed check-in and check-out times", () => {
     const facts = Object.fromEntries(site.about.quickFacts.map((f) => [f.label, f.value]));
-    expect(facts["Check-in"]).toBe("5:00 AM");
+    expect(facts["Check-in"]).toBe("5:00 PM");
     expect(facts["Check-out"]).toBe("11:00 AM");
   });
 

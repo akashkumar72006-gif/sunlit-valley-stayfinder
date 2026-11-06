@@ -31,7 +31,7 @@ export const site = {
     intro:
       "Tucked into the quiet terraces of Saree Village, Sunlit Valley Homestay is a family-run home where mornings begin with mountain light and evenings end under a sky full of stars. Come slow down, breathe the clean Himalayan air and experience village life the way it's meant to be lived.",
     quickFacts: [
-      { label: "Check-in", value: "5:00 AM" },
+      { label: "Check-in", value: "5:00 PM" },
       { label: "Check-out", value: "11:00 AM" },
       { label: "Rooms", value: "Mountain View" },
       { label: "Tariff", value: "₹900 onwards" },
@@ -91,7 +91,7 @@ export const site = {
       { label: "Address", value: "Saree Village, Uttarakhand, India", hint: "Open the map for directions", link: "maps" },
     ],
     bestTime:
-      "Check-in is from 5:00 AM and check-out is by 11:00 AM. Message us on WhatsApp before you set off so we can have everything ready when you arrive.",
+      "Check-in is from 5:00 PM and check-out is by 11:00 AM. Message us on WhatsApp before you set off so we can have everything ready when you arrive.",
   },
 
   // ---------------------------------------------------------------- GALLERY & EXPLORE
