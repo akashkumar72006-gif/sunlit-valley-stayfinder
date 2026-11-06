@@ -137,14 +137,15 @@ export function Index() {
             ))}
           </dl>
         </div>
-        <div className="reveal">
-          {site.about.paragraphs.map((p, i) => (
-            <p key={i} className="mb-4 text-lg leading-relaxed text-muted-foreground">{p}</p>
-          ))}
-          <blockquote className="mt-6 rounded-xl border-l-4 border-accent bg-secondary p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">{site.about.hostNote.label}</p>
-            <p className="mt-3 font-display text-2xl italic leading-snug">{site.about.hostNote.text}</p>
-          </blockquote>
+        <div className="reveal rounded-xl border bg-card p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">What's waiting for you</p>
+          <ul className="mt-5 space-y-3">
+            {site.facilities.groups.flatMap((g) => g.items).map((it) => (
+              <li key={it} className="flex gap-3 text-lg text-muted-foreground">
+                <span className="text-accent">•</span><span>{it}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -154,7 +155,6 @@ export function Index() {
           <div className="reveal mb-12">
             <Eyebrow>{site.rooms.eyebrow}</Eyebrow>
             <H2>{site.rooms.heading}</H2>
-            <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{site.rooms.note}</p>
           </div>
           <div className="grid gap-8 md:grid-cols-2">
             {site.rooms.list.map((r) => (
@@ -188,9 +188,9 @@ export function Index() {
               </article>
             ))}
           </div>
-          <div className="reveal mt-10 rounded-xl border border-dashed bg-card p-7">
+          <div className="reveal mt-10 border-t pt-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">Tariff notes</p>
-            <ul className="mt-3 grid gap-2 text-sm text-muted-foreground md:grid-cols-3">
+            <ul className="mt-3 grid gap-2 text-sm text-muted-foreground md:grid-cols-2">
               {site.rooms.tariffNotes.map((n, i) => (
                 <li key={i} className="flex gap-2"><span className="text-accent">•</span><span>{n}</span></li>
               ))}
@@ -204,13 +204,12 @@ export function Index() {
         <div className="reveal mb-12">
           <Eyebrow>{site.facilities.eyebrow}</Eyebrow>
           <H2>{site.facilities.heading}</H2>
-          <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{site.facilities.note}</p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2">
           {site.facilities.groups.map((g) => (
-            <div key={g.title} className="reveal rounded-xl border bg-card p-7">
+            <div key={g.title} className="reveal rounded-xl border bg-card p-8">
               <h3 className="font-display text-2xl">{g.title}</h3>
-              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              <ul className="mt-5 grid gap-3 text-base text-muted-foreground sm:grid-cols-2">
                 {g.items.map((it) => (
                   <li key={it} className="flex gap-2"><span className="text-accent">•</span><span>{it}</span></li>
                 ))}
@@ -298,15 +297,9 @@ export function Index() {
             <a href={telUrl} className={`${btn} border border-primary-foreground/40`}>Call Now</a>
           </div>
 
-          <div className="reveal mt-12 grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">How to reach us</p>
-              <p className="mt-3 text-sm leading-relaxed opacity-90">{site.contact.directions}</p>
-            </div>
-            <div className="rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Best time to call</p>
-              <p className="mt-3 text-sm leading-relaxed opacity-90">{site.contact.bestTime}</p>
-            </div>
+          <div className="reveal mt-12 rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Before you arrive</p>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed opacity-90">{site.contact.bestTime}</p>
           </div>
         </div>
       </section>
