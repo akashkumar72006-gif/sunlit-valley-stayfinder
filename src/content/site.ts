@@ -94,6 +94,20 @@ export const site = {
       "Check-in is from 5:00 PM and check-out is by 11:00 AM. Message us on WhatsApp before you set off so we can have everything ready when you arrive.",
   },
 
+  // ---------------------------------------------------------------- GUEST FAQ
+  faq: [
+    { q: "What are the check-in and check-out times?", a: "Check-in is from 5:00 PM and check-out is by 11:00 AM." },
+    { q: "How much does a stay cost?", a: "Mountain View Rooms start at ₹900 per person per night." },
+    { q: "Is there Wi-Fi and power backup?", a: "Yes — free Wi-Fi and power backup are available for all guests." },
+    { q: "Will I stay warm in the cold months?", a: "Rooms have a heater and geyser, and we light a bonfire in the evenings." },
+    { q: "Can I bring my car or bike?", a: "Yes, parking is available at the homestay." },
+    { q: "How do I book?", a: "Message us on WhatsApp or call +91 87917 63547 with your dates and number of guests." },
+  ],
+  extras: {
+    heading: "Need something extra?",
+    text: "Planning a bike or scooty ride, a taxi pickup, meals or a local trek? Ask us on WhatsApp and we'll tell you what we can arrange for your dates.",
+  },
+
   // ---------------------------------------------------------------- GALLERY & EXPLORE
   gallery: [hero, room1, village, room2, village, hero],
   explore: [

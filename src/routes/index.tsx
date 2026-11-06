@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 
 const nav = [
   ["About", "about"], ["Rooms & Tariff", "rooms"], ["Facilities", "facilities"], ["Gallery", "gallery"],
-  ["Explore", "explore"], ["Location", "location"], ["Contact", "contact"],
+  ["Explore", "explore"], ["FAQ", "faq"], ["Location", "location"], ["Contact", "contact"],
 ] as const;
 
 // Google Form (if added later) wins; otherwise every enquiry goes straight to WhatsApp.
@@ -244,6 +244,25 @@ export function Index() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="faq" className="mx-auto max-w-4xl px-5 py-24">
+        <div className="reveal mb-10"><Eyebrow>Guest FAQ</Eyebrow><H2>Good to know before you come</H2></div>
+        <div className="divide-y rounded-xl border bg-card">
+          {site.faq.map((f) => (
+            <details key={f.q} className="group p-6">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-xl">
+                {f.q}<span className="text-accent transition group-open:rotate-45">+</span>
+              </summary>
+              <p className="mt-3 text-muted-foreground">{f.a}</p>
+            </details>
+          ))}
+        </div>
+        <div className="reveal mt-10 rounded-xl bg-secondary p-8 text-center">
+          <h3 className="font-display text-2xl">{site.extras.heading}</h3>
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{site.extras.text}</p>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${btn} mt-6 bg-primary text-primary-foreground`}>Ask on WhatsApp</a>
         </div>
       </section>
 
