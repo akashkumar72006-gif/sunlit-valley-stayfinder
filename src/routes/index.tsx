@@ -77,9 +77,22 @@ export function Index() {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll);
-    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")), { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-    return () => { window.removeEventListener("scroll", onScroll); io.disconnect(); };
+    const io = "IntersectionObserver" in window
+      ? new IntersectionObserver(
+          (es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")),
+          { threshold: 0, rootMargin: "0px" },
+        )
+      : null;
+    // Anything already at or above the current scroll position shows straight away,
+    // so opening a section link never leaves blank stretches behind.
+    document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add("in");
+      else if (io) io.observe(el);
+    });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      io?.disconnect();
+    };
   }, []);
   const solid = scrolled || open;
 
