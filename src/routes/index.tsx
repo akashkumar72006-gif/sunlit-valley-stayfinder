@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { ArrowUpRight, CalendarDays, Flame, Menu, Mountain, ParkingCircle, PlugZap, Thermometer, Waves, Wifi, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useStayMotion } from "@/hooks/use-stay-motion";
 import { site, telUrl, whatsappUrl } from "@/content/site";
 
 export const Route = createFileRoute("/")({
@@ -25,12 +28,22 @@ const nav = [
 const enquireHref = site.googleFormUrl || whatsappUrl;
 
 function Eyebrow({ children }: { children: string }) {
-  return <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-accent">{children}</p>;
+  return <p className="mb-3 text-xs font-semibold uppercase tracking-normal text-accent">{children}</p>;
 }
 function H2({ children }: { children: string }) {
   return <h2 className="font-display text-4xl font-medium leading-tight md:text-5xl">{children}</h2>;
 }
-const btn = "inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold tracking-wide transition hover:-translate-y-0.5";
+const btn = "luxury-cta h-auto min-h-12 rounded-lg px-7 py-3 text-sm font-semibold";
+
+function FacilityIcon({ name }: { name: string }) {
+  const Icon = name.toLowerCase().includes("wi-fi") ? Wifi
+    : name.toLowerCase().includes("balcony") ? Mountain
+    : name.toLowerCase().includes("backup") ? PlugZap
+    : name.toLowerCase().includes("bonfire") ? Flame
+    : name.toLowerCase().includes("parking") ? ParkingCircle
+    : name.toLowerCase().includes("geyser") ? Waves : Thermometer;
+  return <Icon aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent" strokeWidth={1.5} />;
+}
 
 function WhatsAppIcon({ className = "h-6 w-6" }: { className?: string }) {
   return (
@@ -49,66 +62,43 @@ function PhoneIcon({ className = "h-6 w-6" }: { className?: string }) {
 
 function FloatingActions() {
   return (
-    <div className="fixed bottom-4 right-3 z-50 flex flex-col items-end gap-2.5 md:bottom-8 md:right-6">
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Chat with Sunlit Valley Homestay on WhatsApp"
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-soft transition hover:-translate-y-0.5 md:h-16 md:w-16"
-      >
-        <WhatsAppIcon className="h-6 w-6 md:h-8 md:w-8" />
-      </a>
-      <a
-        href={telUrl}
-        aria-label={`Call Sunlit Valley Homestay on ${site.phoneDisplay}`}
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-soft transition hover:-translate-y-0.5 md:h-16 md:w-16"
-      >
-        <PhoneIcon className="h-6 w-6 md:h-8 md:w-8" />
-      </a>
+    <div className="floating-actions fixed bottom-4 right-4 z-40 flex gap-2 md:bottom-6 md:right-6">
+      <Button asChild className="luxury-cta h-12 rounded-lg bg-foreground px-4 text-background shadow-soft md:h-14 md:px-5">
+        <a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Book Now — enquire on WhatsApp"><CalendarDays /><span>Book Now</span></a>
+      </Button>
+      <Button asChild className="luxury-cta h-12 rounded-lg bg-whatsapp px-4 text-whatsapp-foreground shadow-soft md:h-14 md:px-5">
+        <a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat with Sunlit Valley Homestay on WhatsApp"><WhatsAppIcon /><span>WhatsApp Enquire</span></a>
+      </Button>
+      <Button asChild size="icon" className="luxury-cta h-12 w-12 rounded-lg bg-primary text-primary-foreground shadow-soft md:h-14 md:w-14">
+        <a href={telUrl} aria-label={`Call Sunlit Valley Homestay on ${site.phoneDisplay}`} title="Call Sunlit Valley Homestay"><PhoneIcon /></a>
+      </Button>
     </div>
   );
 }
 
 export function Index() {
+  const heroRef = useStayMotion();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll);
-    const io = "IntersectionObserver" in window
-      ? new IntersectionObserver(
-          (es) => es.forEach((e) => e.isIntersecting && e.target.classList.add("in")),
-          { threshold: 0, rootMargin: "0px" },
-        )
-      : null;
-    // Anything already at or above the current scroll position shows straight away,
-    // so opening a section link never leaves blank stretches behind.
-    document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => {
-      if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add("in");
-      else if (io) io.observe(el);
-    });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      io?.disconnect();
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const solid = scrolled || open;
 
   return (
     <div className="font-sans">
-      <header className={`fixed inset-x-0 top-0 z-50 transition ${solid ? "bg-background/95 text-foreground shadow-sm backdrop-blur" : "text-on-image"}`}>
+      <header className={`luxury-nav fixed inset-x-0 top-0 z-50 border-b transition duration-500 ${solid ? "border-border bg-background/85 text-foreground shadow-sm" : "border-on-image/20 bg-foreground/20 text-on-image"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <a href="#home" className="font-display text-2xl font-semibold">Sunlit Valley</a>
-          <nav className="hidden items-center gap-7 text-sm lg:flex">
+          <a href="#home" className="brand-link flex shrink-0 items-center gap-3 font-display text-2xl font-medium"><Mountain className="h-7 w-7" strokeWidth={1} /><span>Sunlit Valley<span className="block font-sans text-[10px] leading-4">HOMESTAY</span></span></a>
+          <nav className="hidden items-center gap-4 text-xs xl:gap-5 lg:flex">
             {nav.map(([l, id]) => <a key={id} href={`#${id}`} className="opacity-90 hover:text-accent">{l}</a>)}
             <a href={telUrl} className="opacity-90 hover:text-accent">Call</a>
-            <a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent py-2 text-accent-foreground`}>Enquire Now</a>
+            <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent py-2 text-accent-foreground`}>Enquire Now</a></Button>
           </nav>
-          <button aria-label="Menu" className="lg:hidden" onClick={() => setOpen(!open)}>
-            <div className="space-y-1.5"><span className="block h-0.5 w-6 bg-current" /><span className="block h-0.5 w-6 bg-current" /><span className="block h-0.5 w-6 bg-current" /></div>
-          </button>
+          <Button variant="ghost" size="icon" aria-label={open ? "Close menu" : "Menu"} aria-expanded={open} className="lg:hidden" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
         </div>
         {open && (
           <nav className="flex flex-col gap-1 border-t px-5 pb-5 lg:hidden">
@@ -121,16 +111,16 @@ export function Index() {
         )}
       </header>
 
-      <section id="home" className="relative flex min-h-[100svh] items-end overflow-hidden text-on-image">
-        <img src={site.images.hero} alt="Himalayan peaks at sunrise over Saree Village" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover object-[70%_center]" />
+      <section id="home" className="relative flex min-h-[92svh] items-end overflow-hidden text-on-image">
+        <img ref={heroRef} src={site.images.hero} alt="Himalayan peaks at sunrise over Saree Village" width={1920} height={1088} className="hero-parallax absolute inset-0 h-full w-full object-cover object-[70%_center]" />
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 md:pb-28">
-          <p className="animate-rise mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-accent">{site.location}</p>
-          <h1 className="animate-rise font-display text-5xl font-medium leading-[1.05] [animation-delay:.15s] md:text-7xl lg:text-8xl">{site.name}</h1>
+        <div className="relative mx-auto w-full max-w-7xl px-5 pb-28 pt-36 md:pb-28">
+          <p className="animate-rise mb-4 text-xs font-semibold uppercase tracking-normal text-accent">{site.location}</p>
+          <h1 className="animate-rise font-display max-w-4xl text-5xl font-medium leading-[1.05] [animation-delay:.15s] md:text-7xl lg:text-8xl">{site.name}</h1>
           <p className="animate-rise mt-5 max-w-xl text-lg opacity-90 [animation-delay:.3s]">Wake up to golden Himalayan mornings in a quiet mountain village.</p>
           <div className="animate-rise mt-8 flex flex-wrap gap-3 pr-16 [animation-delay:.45s] md:pr-0">
-            <a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire Now</a>
-            <a href="#rooms" className={`${btn} border border-on-image/60 hover:bg-on-image/10`}>View Rooms</a>
+            <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire Now</a></Button>
+            <Button asChild variant="ghost" className="p-0"><a href="#rooms" className={`${btn} border border-on-image/60 hover:bg-on-image/10`}>View Rooms</a></Button>
           </div>
         </div>
       </section>
@@ -141,21 +131,21 @@ export function Index() {
           <Eyebrow>{site.about.eyebrow}</Eyebrow>
           <H2>{site.about.heading}</H2>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{site.about.intro}</p>
-          <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border">
+          <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border bg-border">
             {site.about.quickFacts.map((f) => (
               <div key={f.label} className="bg-card p-5">
-                <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">{f.label}</dt>
+                <dt className="text-xs font-semibold uppercase tracking-normal text-muted-foreground">{f.label}</dt>
                 <dd className="mt-1 font-display text-2xl">{f.value}</dd>
               </div>
             ))}
           </dl>
         </div>
-        <div className="reveal rounded-xl border bg-card p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">What's waiting for you</p>
+        <div className="reveal amenity-card rounded-lg border bg-card p-8 shadow-soft">
+          <p className="text-xs font-semibold uppercase tracking-normal text-accent">What's waiting for you</p>
           <ul className="mt-5 space-y-3">
             {site.facilities.groups.flatMap((g) => g.items).map((it) => (
               <li key={it} className="flex gap-3 text-lg text-muted-foreground">
-                <span className="text-accent">•</span><span>{it}</span>
+                <FacilityIcon name={it} /><span>{it}</span>
               </li>
             ))}
           </ul>
@@ -171,9 +161,9 @@ export function Index() {
           </div>
           <div className="grid gap-8 md:grid-cols-2">
             {site.rooms.list.map((r) => (
-              <article key={r.name} className="reveal overflow-hidden rounded-xl bg-card shadow-soft">
+              <article key={r.name} className="reveal room-card group overflow-hidden rounded-lg border bg-card shadow-soft">
                 <div className="overflow-hidden">
-                  <img src={r.image} alt={r.name} loading="lazy" width={1024} height={1024} className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" />
+                  <img src={r.image} alt={r.name} loading="lazy" width={1024} height={1024} className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
                 <div className="p-7">
                   <div className="flex items-baseline justify-between gap-3">
@@ -202,7 +192,7 @@ export function Index() {
             ))}
           </div>
           <div className="reveal mt-10 border-t pt-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">Tariff notes</p>
+            <p className="text-sm font-semibold uppercase tracking-normal text-muted-foreground">Tariff notes</p>
             <ul className="mt-3 grid gap-2 text-sm text-muted-foreground md:grid-cols-2">
               {site.rooms.tariffNotes.map((n, i) => (
                 <li key={i} className="flex gap-2"><span className="text-accent">•</span><span>{n}</span></li>
@@ -220,11 +210,11 @@ export function Index() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           {site.facilities.groups.map((g) => (
-            <div key={g.title} className="reveal rounded-xl border bg-card p-8">
+            <div key={g.title} className="reveal amenity-card rounded-lg border bg-card p-8 shadow-soft">
               <h3 className="font-display text-2xl">{g.title}</h3>
               <ul className="mt-5 grid gap-3 text-base text-muted-foreground sm:grid-cols-2">
                 {g.items.map((it) => (
-                  <li key={it} className="flex gap-2"><span className="text-accent">•</span><span>{it}</span></li>
+                  <li key={it} className="flex gap-2"><FacilityIcon name={it} /><span>{it}</span></li>
                 ))}
               </ul>
             </div>
@@ -237,8 +227,8 @@ export function Index() {
           <div className="reveal mb-12"><Eyebrow>Gallery</Eyebrow><H2>Moments from the valley</H2></div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
             {site.gallery.map((src, i) => (
-              <div key={i} className={`reveal overflow-hidden rounded-lg ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
-                <img src={src} alt={`Sunlit Valley gallery photo ${i + 1}`} loading="lazy" className="h-full min-h-40 w-full object-cover transition duration-700 hover:scale-105" />
+              <div key={i} className={`reveal gallery-tile group overflow-hidden rounded-lg ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
+                <img src={src} alt={`Sunlit Valley gallery photo ${i + 1}`} loading="lazy" className="aspect-[4/3] h-full min-h-40 w-full object-cover transition duration-700 group-hover:scale-105" />
               </div>
             ))}
           </div>
@@ -252,7 +242,7 @@ export function Index() {
           <div className="reveal max-w-2xl"><Eyebrow>Explore Saree Village</Eyebrow><H2>Where the Himalayas feel close enough to touch</H2></div>
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {site.explore.map((e) => (
-              <div key={e.title} className="reveal rounded-xl border border-on-image/25 bg-on-image/10 p-7 backdrop-blur-md">
+              <div key={e.title} className="reveal rounded-lg border border-on-image/25 bg-on-image/10 p-7 backdrop-blur-md">
                 <h3 className="font-display text-2xl">{e.title}</h3><p className="mt-2 opacity-85">{e.text}</p>
               </div>
             ))}
@@ -262,9 +252,9 @@ export function Index() {
 
       <section id="faq" className="mx-auto max-w-4xl px-5 py-24">
         <div className="reveal mb-10"><Eyebrow>Guest FAQ</Eyebrow><H2>Good to know before you come</H2></div>
-        <div className="divide-y rounded-xl border bg-card">
+        <div className="divide-y rounded-lg border bg-card">
           {site.faq.map((f) => (
-            <details key={f.q} className="group p-6">
+            <details key={f.q} className="reveal group p-6 transition-colors hover:bg-secondary/60">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-xl">
                 {f.q}<span className="text-accent transition group-open:rotate-45">+</span>
               </summary>
@@ -272,10 +262,10 @@ export function Index() {
             </details>
           ))}
         </div>
-        <div className="reveal mt-10 rounded-xl bg-secondary p-8 text-center">
+        <div className="reveal mt-10 rounded-lg bg-secondary p-8 text-center">
           <h3 className="font-display text-2xl">{site.extras.heading}</h3>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{site.extras.text}</p>
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${btn} mt-6 bg-primary text-primary-foreground`}>Ask on WhatsApp</a>
+          <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${btn} mt-6 bg-primary text-primary-foreground`}>Ask on WhatsApp</a></Button>
         </div>
       </section>
 
@@ -283,9 +273,9 @@ export function Index() {
         <div className="reveal md:col-span-2">
           <Eyebrow>Location</Eyebrow><H2>Find us</H2>
           <p className="mt-4 text-lg text-muted-foreground">{site.name}<br />{site.location}</p>
-          <a href={site.mapsLink} target="_blank" rel="noreferrer" className={`${btn} mt-8 bg-primary text-primary-foreground`}>Open in Google Maps</a>
+          <Button asChild variant="ghost" className="p-0"><a href={site.mapsLink} target="_blank" rel="noreferrer" className={`${btn} mt-8 bg-primary text-primary-foreground`}>Open in Google Maps</a></Button>
         </div>
-        <iframe title="Map" src={site.mapsEmbed} loading="lazy" className="reveal h-80 w-full rounded-xl border shadow-soft md:col-span-3 md:h-96" />
+        <iframe title="Map" src={site.mapsEmbed} loading="lazy" className="reveal h-80 w-full rounded-lg border shadow-soft md:col-span-3 md:h-96" />
       </section>
 
       {/* CONTACT ----------------------------------------------------------- */}
@@ -297,7 +287,7 @@ export function Index() {
             <p className="mx-auto mt-4 max-w-xl opacity-85">{site.contact.intro}</p>
           </div>
 
-          <div className="reveal mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="reveal mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {site.contact.blocks.map((b) => {
               const href =
                 b.link === "phone" ? telUrl
@@ -306,10 +296,10 @@ export function Index() {
                 : b.link === "email" && !b.value.startsWith("[") ? `mailto:${b.value}`
                 : undefined;
               const external = b.link === "whatsapp" || b.link === "maps";
-              const card = "rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-5";
+              const card = "rounded-lg border border-primary-foreground/25 bg-primary-foreground/10 p-5";
               const body = (
                 <>
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">{b.label}</p>
+                  <p className="text-xs font-semibold uppercase tracking-normal text-accent">{b.label}</p>
                   <p className="mt-2 font-display text-xl">{b.value}</p>
                   <p className="mt-1 text-xs opacity-75">{b.hint}</p>
                 </>
@@ -325,29 +315,29 @@ export function Index() {
           </div>
 
           <div className="reveal mt-10 flex flex-wrap justify-center gap-3">
-            <a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire on WhatsApp</a>
-            <a href={telUrl} className={`${btn} border border-primary-foreground/40`}>Call Now</a>
+            <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire on WhatsApp</a></Button>
+            <Button asChild variant="ghost" className="p-0"><a href={telUrl} className={`${btn} border border-primary-foreground/40`}>Call Now</a></Button>
           </div>
 
-          <div className="reveal mt-12 rounded-xl border border-primary-foreground/25 bg-primary-foreground/10 p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Before you arrive</p>
+          <div className="reveal mt-12 rounded-lg border border-primary-foreground/25 bg-primary-foreground/10 p-6">
+            <p className="text-xs font-semibold uppercase tracking-normal text-accent">Before you arrive</p>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed opacity-90">{site.contact.bestTime}</p>
           </div>
         </div>
       </section>
 
       <section id="enquiry" className="mx-auto max-w-4xl px-5 py-24">
-        <div className="reveal rounded-2xl border bg-card p-10 text-center shadow-soft md:p-16">
+        <div className="reveal py-4 text-center md:py-8">
           <Eyebrow>Booking Enquiry</Eyebrow><H2>Plan your mountain stay</H2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">Share your dates and number of guests, and we'll get back to you personally.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a href={enquireHref} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Send Booking Enquiry</a>
-            <a href={telUrl} className={`${btn} border border-border`}>Call {site.phoneDisplay}</a>
+            <Button asChild variant="ghost" className="p-0"><a href={enquireHref} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Send Booking Enquiry</a></Button>
+            <Button asChild variant="ghost" className="p-0"><a href={telUrl} className={`${btn} border border-border`}>Call {site.phoneDisplay}</a></Button>
           </div>
         </div>
       </section>
 
-      <footer className="border-t bg-secondary">
+      <footer className="border-t bg-secondary pb-20">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 md:grid-cols-3">
           <div><p className="font-display text-2xl">{site.name}</p><p className="mt-2 text-sm text-muted-foreground">{site.location}</p></div>
           <div className="text-sm">

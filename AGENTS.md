@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep scroll reveal and hero parallax in the shared motion hook; content stays visible by default so navigation and unavailable browser APIs cannot leave blank sections.

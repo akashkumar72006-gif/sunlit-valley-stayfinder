@@ -52,6 +52,8 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
   --color-on-image: var(--on-image);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Karla", system-ui, sans-serif;
   --color-sidebar: var(--sidebar);
@@ -66,28 +68,31 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.975 0.012 80);
-  --foreground: oklch(0.24 0.03 50);
-  --card: oklch(0.99 0.008 80);
-  --card-foreground: oklch(0.24 0.03 50);
+  --background: oklch(0.985 0.002 150);
+  --foreground: oklch(0.23 0.012 160);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.23 0.012 160);
   --popover: oklch(0.99 0.008 80);
   --popover-foreground: oklch(0.24 0.03 50);
-  --primary: oklch(0.36 0.05 150);
+  --primary: oklch(0.32 0.038 160);
   --primary-foreground: oklch(0.97 0.015 85);
-  --secondary: oklch(0.93 0.025 80);
+  --secondary: oklch(0.956 0.006 150);
   --secondary-foreground: oklch(0.3 0.04 50);
   --muted: oklch(0.94 0.018 80);
-  --muted-foreground: oklch(0.5 0.03 60);
-  --accent: oklch(0.74 0.14 65);
+  --muted-foreground: oklch(0.49 0.013 160);
+  --accent: oklch(0.74 0.1 75);
   --accent-foreground: oklch(0.22 0.04 50);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.88 0.025 75);
+  --border: oklch(0.89 0.007 150);
   --input: oklch(0.88 0.025 75);
   --ring: oklch(0.74 0.14 65);
   --hero-overlay: linear-gradient(180deg, oklch(0.18 0.03 50 / 0.45), oklch(0.18 0.03 50 / 0.25) 40%, oklch(0.16 0.03 50 / 0.8));
   --on-image: oklch(0.98 0.01 85);
-  --shadow-soft: 0 20px 50px -20px oklch(0.3 0.05 50 / 0.35);
+  --shadow-soft: 0 12px 36px -16px oklch(0.23 0.02 160 / 0.2);
+  --shadow-lift: 0 24px 48px -16px oklch(0.23 0.02 160 / 0.25);
+  --whatsapp: oklch(0.4 0.1 153);
+  --whatsapp-foreground: oklch(0.99 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -155,6 +160,30 @@ section[id] { scroll-margin-top: 5rem; }
 @utility shadow-soft { box-shadow: var(--shadow-soft); }
 @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @utility animate-rise { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
-.reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+.reveal { opacity: 1; translate: 0 0; transition: opacity .8s ease, translate .8s ease; }
+.reveal.reveal-pending { opacity: 0; translate: 0 22px; }
+.reveal.in { opacity: 1; translate: 0 0; }
+.luxury-nav { backdrop-filter: blur(22px) saturate(130%); }
+.hero-parallax { transform: translateY(var(--parallax-offset, 0px)) scale(1.12); will-change: transform; }
+.luxury-cta { transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease; }
+.room-card, .amenity-card { transition: opacity .8s ease, translate .8s ease, transform .45s ease, box-shadow .45s ease; }
+.room-card:hover, .amenity-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+.luxury-cta:hover { transform: translateY(-2px) scale(1.025); box-shadow: var(--shadow-lift); }
+.luxury-cta:active { transform: scale(.98); }
+a { transition: color .25s ease, opacity .25s ease, background-color .25s ease; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+header nav a:not(.luxury-cta):hover, footer a:hover { color: var(--accent); }
+.brand-link:hover { opacity: .8; }
+summary::-webkit-details-marker { display: none; }
+@media (max-width: 639px) {
+  .floating-actions { right: 12px; left: 12px; bottom: max(12px, env(safe-area-inset-bottom)); justify-content: center; }
+  .floating-actions .luxury-cta { padding-inline: 12px; font-size: 12px; }
+  .floating-actions .luxury-cta:last-child { padding-inline: 0; flex-shrink: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .reveal, .reveal.reveal-pending { opacity: 1; translate: 0 0; }
+  .hero-parallax { transform: none; will-change: auto; }
+  .luxury-cta:hover, .room-card:hover, .amenity-card:hover, .group:hover img { transform: none; }
+}
