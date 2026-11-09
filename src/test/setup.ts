@@ -7,6 +7,7 @@ Object.defineProperty(window, "scrollTo", {
 
 // jsdom has no IntersectionObserver; page components use it for scroll reveals.
 Object.defineProperty(window, "IntersectionObserver", {
+  configurable: true,
   writable: true,
   value: class {
     observe() {}

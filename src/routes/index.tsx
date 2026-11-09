@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, CalendarDays, Flame, Menu, Mountain, ParkingCircle, PlugZap, Thermometer, Waves, Wifi, X } from "lucide-react";
+import { CalendarDays, Flame, Menu, Mountain, ParkingCircle, PlugZap, Thermometer, Waves, Wifi, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useStayMotion } from "@/hooks/use-stay-motion";
 import { site, telUrl, whatsappUrl } from "@/content/site";
@@ -63,13 +63,13 @@ function PhoneIcon({ className = "h-6 w-6" }: { className?: string }) {
 function FloatingActions() {
   return (
     <div className="floating-actions fixed bottom-4 right-4 z-40 flex gap-2 md:bottom-6 md:right-6">
-      <Button asChild className="luxury-cta h-12 rounded-lg bg-foreground px-4 text-background shadow-soft md:h-14 md:px-5">
+      <Button asChild variant="stay" className="luxury-cta h-12 rounded-lg bg-foreground px-4 text-background shadow-soft md:h-14 md:px-5">
         <a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Book Now — enquire on WhatsApp"><CalendarDays /><span>Book Now</span></a>
       </Button>
-      <Button asChild className="luxury-cta h-12 rounded-lg bg-whatsapp px-4 text-whatsapp-foreground shadow-soft md:h-14 md:px-5">
+      <Button asChild variant="stay" className="luxury-cta h-12 rounded-lg bg-whatsapp px-4 text-whatsapp-foreground shadow-soft md:h-14 md:px-5">
         <a href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat with Sunlit Valley Homestay on WhatsApp"><WhatsAppIcon /><span>WhatsApp Enquire</span></a>
       </Button>
-      <Button asChild size="icon" className="luxury-cta h-12 w-12 rounded-lg bg-primary text-primary-foreground shadow-soft md:h-14 md:w-14">
+      <Button asChild variant="stay" size="icon" className="luxury-cta h-12 w-12 rounded-lg bg-primary text-primary-foreground shadow-soft md:h-14 md:w-14">
         <a href={telUrl} aria-label={`Call Sunlit Valley Homestay on ${site.phoneDisplay}`} title="Call Sunlit Valley Homestay"><PhoneIcon /></a>
       </Button>
     </div>
@@ -96,7 +96,7 @@ export function Index() {
           <nav className="hidden items-center gap-4 text-xs xl:gap-5 lg:flex">
             {nav.map(([l, id]) => <a key={id} href={`#${id}`} className="opacity-90 hover:text-accent">{l}</a>)}
             <a href={telUrl} className="opacity-90 hover:text-accent">Call</a>
-            <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent py-2 text-accent-foreground`}>Enquire Now</a></Button>
+            <Button asChild variant="stay"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent py-2 text-accent-foreground`}>Enquire Now</a></Button>
           </nav>
           <Button variant="ghost" size="icon" aria-label={open ? "Close menu" : "Menu"} aria-expanded={open} className="lg:hidden" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
         </div>
@@ -119,8 +119,8 @@ export function Index() {
           <h1 className="animate-rise font-display max-w-4xl text-5xl font-medium leading-[1.05] [animation-delay:.15s] md:text-7xl lg:text-8xl">{site.name}</h1>
           <p className="animate-rise mt-5 max-w-xl text-lg opacity-90 [animation-delay:.3s]">Wake up to golden Himalayan mornings in a quiet mountain village.</p>
           <div className="animate-rise mt-8 flex flex-wrap gap-3 pr-16 [animation-delay:.45s] md:pr-0">
-            <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire Now</a></Button>
-            <Button asChild variant="ghost" className="p-0"><a href="#rooms" className={`${btn} border border-on-image/60 hover:bg-on-image/10`}>View Rooms</a></Button>
+            <Button asChild variant="stay"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire Now</a></Button>
+            <Button asChild variant="stay"><a href="#rooms" className={`${btn} border border-on-image/60 hover:bg-on-image/10`}>View Rooms</a></Button>
           </div>
         </div>
       </section>
@@ -265,7 +265,7 @@ export function Index() {
         <div className="reveal mt-10 rounded-lg bg-secondary p-8 text-center">
           <h3 className="font-display text-2xl">{site.extras.heading}</h3>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{site.extras.text}</p>
-          <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${btn} mt-6 bg-primary text-primary-foreground`}>Ask on WhatsApp</a></Button>
+          <Button asChild variant="stay"><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${btn} mt-6 bg-primary text-primary-foreground`}>Ask on WhatsApp</a></Button>
         </div>
       </section>
 
@@ -273,7 +273,7 @@ export function Index() {
         <div className="reveal md:col-span-2">
           <Eyebrow>Location</Eyebrow><H2>Find us</H2>
           <p className="mt-4 text-lg text-muted-foreground">{site.name}<br />{site.location}</p>
-          <Button asChild variant="ghost" className="p-0"><a href={site.mapsLink} target="_blank" rel="noreferrer" className={`${btn} mt-8 bg-primary text-primary-foreground`}>Open in Google Maps</a></Button>
+          <Button asChild variant="stay"><a href={site.mapsLink} target="_blank" rel="noreferrer" className={`${btn} mt-8 bg-primary text-primary-foreground`}>Open in Google Maps</a></Button>
         </div>
         <iframe title="Map" src={site.mapsEmbed} loading="lazy" className="reveal h-80 w-full rounded-lg border shadow-soft md:col-span-3 md:h-96" />
       </section>
@@ -315,8 +315,8 @@ export function Index() {
           </div>
 
           <div className="reveal mt-10 flex flex-wrap justify-center gap-3">
-            <Button asChild variant="ghost" className="p-0"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire on WhatsApp</a></Button>
-            <Button asChild variant="ghost" className="p-0"><a href={telUrl} className={`${btn} border border-primary-foreground/40`}>Call Now</a></Button>
+            <Button asChild variant="stay"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire on WhatsApp</a></Button>
+            <Button asChild variant="stay"><a href={telUrl} className={`${btn} border border-primary-foreground/40`}>Call Now</a></Button>
           </div>
 
           <div className="reveal mt-12 rounded-lg border border-primary-foreground/25 bg-primary-foreground/10 p-6">
@@ -331,8 +331,8 @@ export function Index() {
           <Eyebrow>Booking Enquiry</Eyebrow><H2>Plan your mountain stay</H2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">Share your dates and number of guests, and we'll get back to you personally.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button asChild variant="ghost" className="p-0"><a href={enquireHref} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Send Booking Enquiry</a></Button>
-            <Button asChild variant="ghost" className="p-0"><a href={telUrl} className={`${btn} border border-border`}>Call {site.phoneDisplay}</a></Button>
+            <Button asChild variant="stay"><a href={enquireHref} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Send Booking Enquiry</a></Button>
+            <Button asChild variant="stay"><a href={telUrl} className={`${btn} border border-border`}>Call {site.phoneDisplay}</a></Button>
           </div>
         </div>
       </section>
