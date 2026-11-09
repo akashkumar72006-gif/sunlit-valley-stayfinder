@@ -41,7 +41,7 @@ export const site = {
       { label: "Check-in", value: "5:00 PM" },
       { label: "Check-out", value: "11:00 AM" },
       { label: "Rooms", value: "Mountain View" },
-      { label: "Tariff", value: "₹900 onwards" },
+      { label: "Price", value: "₹900 onwards" },
     ],
   },
 
@@ -61,10 +61,10 @@ export const site = {
     ],
   },
 
-  // ---------------------------------------------------------------- ROOMS & TARIFF
+  // ---------------------------------------------------------------- ROOMS & PRICE
   rooms: {
-    eyebrow: "Rooms & Tariff",
-    heading: "Rooms & Tariff",
+    eyebrow: "Rooms & Price",
+    heading: "Rooms & Price",
     list: [
       {
         name: "Mountain View Room",
@@ -72,7 +72,7 @@ export const site = {
         description: "A warm, wood-finished room whose window and balcony open straight onto the mountains.",
         sleeps: "Sleeps 2",
         features: ["Mountain view balcony", "Attached bathroom", "Geyser", "Heater"],
-        tariff: [{ label: "Tariff", value: "₹900 per person per night" }],
+        price: [{ label: "Price", value: "₹900 per person per night" }],
       },
       {
         name: "Mountain View Family Room",
@@ -80,10 +80,10 @@ export const site = {
         description: "A spacious mountain-view room with room for the whole family to rest after a day outdoors.",
         sleeps: "Sleeps 4",
         features: ["Mountain view balcony", "Attached bathroom", "Geyser", "Heater", "Extra seating"],
-        tariff: [{ label: "Tariff", value: "₹900 per person per night" }],
+        price: [{ label: "Price", value: "₹900 per person per night" }],
       },
     ],
-    tariffNotes: ["Tariff is per person per night.", "Power backup keeps the lights on through the night."],
+    priceNotes: ["Price is per person per night.", "Power backup keeps the lights on through the night."],
   },
 
   // ---------------------------------------------------------------- CONTACT

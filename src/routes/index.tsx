@@ -152,7 +152,7 @@ export function Index() {
         </div>
       </section>
 
-      {/* ROOMS & TARIFF ---------------------------------------------------- */}
+      {/* ROOMS & PRICE ----------------------------------------------------- */}
       <section id="rooms" className="bg-secondary py-24">
         <div className="mx-auto max-w-7xl px-5">
           <div className="reveal mb-12">
@@ -177,7 +177,7 @@ export function Index() {
                     ))}
                   </ul>
                   <dl className="mt-6 border-t">
-                    {r.tariff.map((t) => (
+                    {r.price.map((t) => (
                       <div key={t.label} className="flex items-center justify-between gap-4 border-b py-2.5 last:border-b-0">
                         <dt className="text-sm text-muted-foreground">{t.label}</dt>
                         <dd className="text-sm font-semibold text-primary">{t.value}</dd>
@@ -192,9 +192,9 @@ export function Index() {
             ))}
           </div>
           <div className="reveal mt-10 border-t pt-6">
-            <p className="text-sm font-semibold uppercase tracking-normal text-muted-foreground">Tariff notes</p>
+            <p className="text-sm font-semibold uppercase tracking-normal text-muted-foreground">Price notes</p>
             <ul className="mt-3 grid gap-2 text-sm text-muted-foreground md:grid-cols-2">
-              {site.rooms.tariffNotes.map((n, i) => (
+              {site.rooms.priceNotes.map((n, i) => (
                 <li key={i} className="flex gap-2"><span className="text-accent">•</span><span>{n}</span></li>
               ))}
             </ul>

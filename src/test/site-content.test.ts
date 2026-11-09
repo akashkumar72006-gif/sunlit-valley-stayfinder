@@ -21,7 +21,7 @@ describe("Site content", () => {
     expect(site.rooms.list.length).toBeGreaterThan(0);
     for (const room of site.rooms.list) {
       expect(room.name).toMatch(/Mountain View/);
-      expect(room.tariff.some((t) => t.value.includes("₹900 per person per night"))).toBe(true);
+      expect(room.price.some((t) => t.value.includes("₹900 per person per night"))).toBe(true);
     }
   });
 
