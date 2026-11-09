@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 });
 
 const nav = [
-  ["About", "about"], ["Rooms & Tariff", "rooms"], ["Facilities", "facilities"], ["Gallery", "gallery"],
+  ["About", "about"], ["Rooms & price ", "rooms"], ["Facilities", "facilities"], ["Gallery", "gallery"],
   ["Explore", "explore"], ["FAQ", "faq"], ["Location", "location"], ["Contact", "contact"],
 ] as const;
 
