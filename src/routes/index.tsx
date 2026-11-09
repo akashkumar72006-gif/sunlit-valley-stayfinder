@@ -262,11 +262,6 @@ export function Index() {
             </details>
           ))}
         </div>
-        <div className="reveal mt-10 rounded-lg bg-secondary p-8 text-center">
-          <h3 className="font-display text-2xl">{site.extras.heading}</h3>
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{site.extras.text}</p>
-          <Button asChild variant="stay"><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${btn} mt-6 bg-primary text-primary-foreground`}>Ask on WhatsApp</a></Button>
-        </div>
       </section>
 
       <section id="location" className="mx-auto grid max-w-7xl gap-10 px-5 py-24 md:grid-cols-5 md:items-center">
