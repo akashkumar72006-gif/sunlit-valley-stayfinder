@@ -112,7 +112,7 @@ export function Index() {
       </header>
 
       <section id="home" className="relative flex min-h-[92svh] items-end overflow-hidden text-on-image">
-        <img ref={heroRef} src={site.images.hero} alt="Himalayan peaks at sunrise over Saree Village" width={1920} height={1088} className="hero-parallax absolute inset-0 h-full w-full object-cover object-[70%_center]" />
+        <img ref={heroRef} src={site.images.hero} alt="Snow-capped Himalayan peaks above Saree Village" width={1920} height={1088} className="hero-parallax absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto w-full max-w-7xl px-5 pb-28 pt-36 md:pb-28">
           <p className="animate-rise mb-4 text-xs font-semibold uppercase tracking-normal text-accent">{site.location}</p>
@@ -227,8 +227,8 @@ export function Index() {
           <div className="reveal mb-12"><Eyebrow>Gallery</Eyebrow><H2>Moments from the valley</H2></div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
             {site.gallery.map((src, i) => (
-              <div key={i} className={`reveal gallery-tile group overflow-hidden rounded-lg ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
-                <img src={src} alt={`Sunlit Valley gallery photo ${i + 1}`} loading="lazy" className="aspect-[4/3] h-full min-h-40 w-full object-cover transition duration-700 group-hover:scale-105" />
+              <div key={i} className="reveal gallery-tile group overflow-hidden rounded-lg shadow-soft">
+                <img src={src} alt={`Sunlit Valley gallery photo ${i + 1}`} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 ease-out group-hover:scale-110" />
               </div>
             ))}
           </div>

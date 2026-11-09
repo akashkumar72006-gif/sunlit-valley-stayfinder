@@ -1,9 +1,16 @@
 // All editable website content lives here.
 // Rewrite the text in place — the page shows it exactly as written.
-import hero from "@/assets/hero.jpg";
-import room1 from "@/assets/room1.jpg";
-import room2 from "@/assets/room2.jpg";
-import village from "@/assets/village.jpg";
+import heroAsset from "@/assets/snow-peak-valley.jpg.asset.json";
+import room1Asset from "@/assets/mountain-view-room.jpg.asset.json";
+import room2Asset from "@/assets/balcony-corridor.jpg.asset.json";
+import villageAsset from "@/assets/village-terraces.png.asset.json";
+import valleyAsset from "@/assets/valley-view.jpg.asset.json";
+
+const hero = heroAsset.url;
+const room1 = room1Asset.url;
+const room2 = room2Asset.url;
+const village = villageAsset.url;
+const valley = valleyAsset.url;
 
 export const site = {
   name: "Sunlit Valley Homestay",
@@ -109,7 +116,7 @@ export const site = {
   },
 
   // ---------------------------------------------------------------- GALLERY & EXPLORE
-  gallery: [hero, room1, village, room2, village, hero],
+  gallery: [hero, room1, room2, village, valley, hero],
   explore: [
     { title: "Village life", text: "Stone houses, terraced fields and a slower rhythm of days." },
     { title: "Himalayan views", text: "Snow peaks rise over the valley on clear mornings." },
