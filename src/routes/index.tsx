@@ -164,39 +164,34 @@ export function Index() {
             <Eyebrow>{site.rooms.eyebrow}</Eyebrow>
             <H2>{site.rooms.heading}</H2>
           </div>
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8">
             {site.rooms.list.map((r) => (
-              <article key={r.name} className="reveal room-card group overflow-hidden rounded-lg border bg-card shadow-soft">
-                <div className="overflow-hidden">
-                  <img src={r.image} alt={r.name} loading="lazy" width={1024} height={1024} className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" />
+              <article key={r.name} className="reveal room-card group overflow-hidden rounded-2xl border bg-card shadow-soft md:grid md:grid-cols-2">
+                <div className="relative overflow-hidden">
+                  <img src={r.image} alt={r.name} loading="lazy" width={1024} height={1024} className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105 md:aspect-auto md:h-full md:min-h-96" />
+                  <span className="absolute left-5 top-5 rounded-full border border-on-image/30 bg-foreground/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-normal text-on-image backdrop-blur-md">{r.sleeps}</span>
                 </div>
-                <div className="p-7">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="font-display text-3xl">{r.name}</h3>
-                    <span className="shrink-0 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-normal text-accent">{r.sleeps}</span>
-                  </div>
-                  <p className="mt-2 text-muted-foreground">{r.description}</p>
-                  <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg border bg-secondary/60 px-4 py-3">
+                <div className="flex flex-col p-7 md:p-10">
+                  <h3 className="font-display text-3xl md:text-4xl">{r.name}</h3>
+                  <p className="mt-3 text-muted-foreground md:text-lg">{r.description}</p>
+                  <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg border bg-secondary/60 px-4 py-3">
                     {r.beds.map((b) => (
                       <span key={b} className="flex items-center gap-2 text-sm font-semibold"><BedIcon name={b} /><span>{b}</span></span>
                     ))}
                   </div>
-                  <p className="mt-2.5 flex items-center gap-2 text-sm text-muted-foreground"><Users aria-hidden="true" className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.5} /><span>{r.capacityNote}</span></p>
-                  <ul className="mt-4 grid gap-1 text-sm text-muted-foreground sm:grid-cols-2">
+                  <p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground"><Users aria-hidden="true" className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.5} /><span>{r.capacityNote}</span></p>
+                  <ul className="mt-5 grid gap-1.5 text-sm text-muted-foreground sm:grid-cols-2">
                     {r.features.map((f) => (
                       <li key={f} className="flex gap-2"><span className="text-accent">•</span><span>{f}</span></li>
                     ))}
                   </ul>
-                  <div className="mt-6 flex items-end justify-between gap-4 rounded-lg border bg-secondary/60 p-5">
-                    <div>
+                  <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-7">
+                    <div className="rounded-lg border bg-secondary/60 px-5 py-4">
                       <p className="text-xs font-semibold uppercase tracking-normal text-muted-foreground">{r.price.from}</p>
-                      <p className="mt-1 font-display text-4xl leading-none text-primary">{r.price.amount}</p>
+                      <p className="mt-1 font-display text-4xl leading-none text-primary">{r.price.amount} <span className="font-sans text-sm font-semibold text-primary">{r.price.unit}</span></p>
                     </div>
-                    <p className="text-right text-sm font-semibold text-primary">{r.price.unit}</p>
+                    <Button asChild variant="stay"><a href={whatsappUrl} target="_blank" rel="noreferrer" className={`${btn} bg-accent text-accent-foreground`}>Enquire about this room</a></Button>
                   </div>
-                  <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-5 inline-block text-sm font-semibold text-accent hover:underline">
-                    Enquire about this room →
-                  </a>
                 </div>
               </article>
             ))}
