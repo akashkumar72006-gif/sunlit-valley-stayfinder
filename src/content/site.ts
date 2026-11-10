@@ -77,17 +77,6 @@ export const site = {
         features: ["Mountain view balcony", "Attached bathroom", "Geyser", "Heater"],
         price: { from: "Starting at", amount: "₹900", unit: "per person per night" },
       },
-      {
-        name: "Mountain View Family Room",
-        image: room2,
-        description:
-          "A spacious mountain-view room with room for the whole family to rest after a day outdoors. The same flexible bed layout keeps things comfortable for families and groups traveling together.",
-        sleeps: "3 to 4 Sleeps",
-        capacityNote: "Ideal for 3 adults or a family of 4 with a child",
-        beds: ["1 Double Bed", "1 Single Bed"],
-        features: ["Mountain view balcony", "Attached bathroom", "Geyser", "Heater", "Extra seating"],
-        price: { from: "Starting at", amount: "₹900", unit: "per person per night" },
-      },
     ],
     priceNotes: ["Price is per person per night.", "Power backup keeps the lights on through the night."],
   },
