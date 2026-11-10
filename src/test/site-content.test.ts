@@ -21,7 +21,16 @@ describe("Site content", () => {
     expect(site.rooms.list.length).toBeGreaterThan(0);
     for (const room of site.rooms.list) {
       expect(room.name).toMatch(/Mountain View/);
-      expect(room.price.some((t) => t.value.includes("₹900 per person per night"))).toBe(true);
+      expect(room.price.amount).toBe("₹900");
+      expect(room.price.unit).toBe("per person per night");
+    }
+  });
+
+  it("shows the confirmed bed setup and guest capacity", () => {
+    for (const room of site.rooms.list) {
+      expect(room.beds).toEqual(["1 Double Bed", "1 Single Bed"]);
+      expect(room.sleeps).toBe("3 to 4 Sleeps");
+      expect(room.capacityNote).toBe("Ideal for 3 adults or a family of 4 with a child");
     }
   });
 
