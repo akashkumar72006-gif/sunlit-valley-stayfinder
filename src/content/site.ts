@@ -1,16 +1,24 @@
 // All editable website content lives here.
 // Rewrite the text in place — the page shows it exactly as written.
-import heroAsset from "@/assets/snow-peak-valley.jpg.asset.json";
-import room1Asset from "@/assets/mountain-view-room.jpg.asset.json";
-import room2Asset from "@/assets/balcony-corridor.jpg.asset.json";
-import villageAsset from "@/assets/village-terraces.png.asset.json";
-import valleyAsset from "@/assets/valley-view.jpg.asset.json";
+import heroPhoto from "@/assets/Crisp_Himalayan_Valley_Village_Panorama-100kb.jpeg";
+import valleyPhoto from "@/assets/1.jpg";
+import corridorPhoto from "@/assets/32fa8405-5257-4bc9-9b20-c0a5c1f30d61.jpg";
+import villagePhoto from "@/assets/b47867ec-2467-428e-a1a6-7000bac7686b.png";
+import roomPhoto from "@/assets/upscaled-100kb.jpg";
 
-const hero = heroAsset.url;
-const room1 = room1Asset.url;
-const room2 = room2Asset.url;
-const village = villageAsset.url;
-const valley = valleyAsset.url;
+const hero = heroPhoto;
+const room = roomPhoto;
+const corridor = corridorPhoto;
+const village = villagePhoto;
+const valley = valleyPhoto;
+
+const gallery = [
+  { src: hero, alt: "Mountain valley and terraced village in Saree", caption: "The valley from Saree Village" },
+  { src: room, alt: "Mountain View Room with double and single beds", caption: "A warm room to come home to" },
+  { src: corridor, alt: "Sunlit homestay corridor and mountain-facing balcony", caption: "Morning light around the homestay" },
+  { src: village, alt: "Green village terraces below the Himalayan mountains", caption: "Village life in the valley" },
+  { src: valley, alt: "Himalayan village rooftops beneath snow peaks", caption: "Clear-day Himalayan views" },
+];
 
 export const site = {
   name: "Sunlit Valley Homestay",
@@ -29,7 +37,7 @@ export const site = {
   // Paste your Google Form link here later; the enquiry button will open it.
   googleFormUrl: "",
 
-  images: { hero, village },
+  images: { hero, village, valley },
 
   // ---------------------------------------------------------------- ABOUT US
   about: {
@@ -68,7 +76,7 @@ export const site = {
     list: [
       {
         name: "Mountain View Room",
-        image: room1,
+        image: room,
         description:
           "A warm, wood-finished room whose window and balcony open straight onto the mountains. The double-and-single bed setup gives extra comfort to families and groups traveling together.",
         sleeps: "3 to 4 Sleeps",
@@ -111,7 +119,7 @@ export const site = {
   },
 
   // ---------------------------------------------------------------- GALLERY & EXPLORE
-  gallery: [hero, room1, room2, village, valley],
+  gallery,
   explore: [
     { title: "Village life", text: "Stone houses, terraced fields and a slower rhythm of days." },
     { title: "Himalayan views", text: "Snow peaks rise over the valley on clear mornings." },

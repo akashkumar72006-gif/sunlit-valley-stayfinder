@@ -117,7 +117,7 @@ export function Index() {
       </header>
 
       <section id="home" className="relative flex min-h-[92svh] items-end overflow-hidden text-on-image">
-        <img ref={heroRef} src={site.images.hero} alt="Snow-capped Himalayan peaks above Saree Village" width={1920} height={1088} className="hero-parallax absolute inset-0 h-full w-full object-cover object-center" />
+        <img ref={heroRef} src={site.images.hero} alt="Mountain valley and terraced village in Saree" width={1536} height={1024} fetchPriority="high" decoding="async" className="hero-parallax absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto w-full max-w-7xl px-5 pb-28 pt-36 md:pb-28">
           <p className="animate-rise mb-4 text-xs font-semibold uppercase tracking-normal text-accent">{site.location}</p>
@@ -168,7 +168,7 @@ export function Index() {
             {site.rooms.list.map((r) => (
               <article key={r.name} className="reveal room-card group overflow-hidden rounded-2xl border bg-card shadow-soft md:grid md:grid-cols-2">
                 <div className="relative overflow-hidden">
-                  <img src={r.image} alt={r.name} loading="lazy" width={1024} height={1024} className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105 md:aspect-auto md:h-full md:min-h-96" />
+                  <img src={r.image} alt={r.name} loading="lazy" width={1536} height={1024} decoding="async" className="aspect-[4/3] w-full object-cover object-center transition duration-700 group-hover:scale-105 md:aspect-auto md:h-full md:min-h-96" />
                   <span className="absolute left-5 top-5 rounded-full border border-on-image/30 bg-foreground/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-normal text-on-image backdrop-blur-md">{r.sleeps}</span>
                 </div>
                 <div className="flex flex-col p-7 md:p-10">
@@ -230,18 +230,39 @@ export function Index() {
       <section id="gallery" className="bg-secondary py-24">
         <div className="mx-auto max-w-7xl px-5">
           <div className="reveal mb-12"><Eyebrow>Gallery</Eyebrow><H2>Moments from the valley</H2></div>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-            {site.gallery.map((src, i) => (
-              <div key={i} className="reveal gallery-tile group overflow-hidden rounded-lg shadow-soft">
-                <img src={src} alt={`Sunlit Valley gallery photo ${i + 1}`} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 ease-out group-hover:scale-110" />
-              </div>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-12 md:auto-rows-[14rem] md:gap-4">
+            {site.gallery.map((photo, i) => (
+              <figure
+                key={photo.src}
+                className={`reveal gallery-tile group relative overflow-hidden rounded-lg shadow-soft ${
+                  i === 0
+                    ? "col-span-2 md:col-span-7 md:row-span-2"
+                    : i === 1 || i === 2
+                      ? "md:col-span-5"
+                      : i === 3
+                        ? "md:col-span-4"
+                        : "md:col-span-8"
+                }`}
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="h-full min-h-48 w-full object-cover transition duration-700 ease-out group-hover:scale-105"
+                  style={{ animationDelay: `${i * 90}ms` }}
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/80 via-foreground/35 to-transparent px-4 pb-4 pt-10 text-sm font-semibold text-on-image opacity-100 transition duration-500 md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:px-5 md:pb-5">
+                  {photo.caption}
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>
       </section>
 
       <section id="explore" className="relative overflow-hidden py-28 text-on-image">
-        <img src={site.images.village} alt="Saree Village with Himalayan peaks" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={site.images.village} alt="Green village terraces below the Himalayan mountains" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto max-w-7xl px-5">
           <div className="reveal max-w-2xl"><Eyebrow>Explore Saree Village</Eyebrow><H2>Where the Himalayas feel close enough to touch</H2></div>

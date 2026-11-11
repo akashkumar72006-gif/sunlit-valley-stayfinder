@@ -164,12 +164,14 @@ section[id] { scroll-margin-top: 5rem; }
 .reveal.reveal-pending { opacity: 0; translate: 0 22px; }
 .reveal.in { opacity: 1; translate: 0 0; }
 @keyframes room-img-in { from { transform: scale(1.14); } to { transform: scale(1); } }
+@keyframes gallery-img-in { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: scale(1); } }
 .room-card.in img { animation: room-img-in 1.6s cubic-bezier(.2,.7,.2,1); }
+.gallery-tile.in img { animation: gallery-img-in .95s cubic-bezier(.2,.7,.2,1) both; }
 .luxury-nav { backdrop-filter: blur(22px) saturate(130%); }
 .hero-parallax { transform: translateY(var(--parallax-offset, 0px)) scale(1.12); will-change: transform; }
 .luxury-cta { transition: transform .3s ease, box-shadow .3s ease, background-color .3s ease; }
-.room-card, .amenity-card { transition: opacity .8s ease, translate .8s ease, transform .45s ease, box-shadow .45s ease; }
-.room-card:hover, .amenity-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+.room-card, .amenity-card, .gallery-tile { transition: opacity .8s ease, translate .8s ease, transform .45s ease, box-shadow .45s ease; }
+.room-card:hover, .amenity-card:hover, .gallery-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
 .luxury-cta:hover { transform: translateY(-2px) scale(1.025); box-shadow: var(--shadow-lift); }
 .luxury-cta:active { transform: scale(.98); }
 a { transition: color .25s ease, opacity .25s ease, background-color .25s ease; }
