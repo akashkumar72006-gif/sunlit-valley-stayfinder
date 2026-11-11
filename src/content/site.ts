@@ -111,7 +111,7 @@ export const site = {
   },
 
   // ---------------------------------------------------------------- GALLERY & EXPLORE
-  gallery: [hero, room1, room2, village, valley, hero],
+  gallery: [hero, room1, room2, village, valley],
   explore: [
     { title: "Village life", text: "Stone houses, terraced fields and a slower rhythm of days." },
     { title: "Himalayan views", text: "Snow peaks rise over the valley on clear mornings." },
