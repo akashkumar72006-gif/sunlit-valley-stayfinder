@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BedDouble, BedSingle, CalendarDays, Flame, Menu, Mountain, ParkingCircle, PlugZap, Thermometer, Users, Waves, Wifi, X } from "lucide-react";
+import { BedDouble, BedSingle, CalendarDays, Clock3, Flame, MapPin, Menu, Mountain, Navigation, ParkingCircle, PlugZap, Route as RouteIcon, Thermometer, Users, Waves, Wifi, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useStayMotion } from "@/hooks/use-stay-motion";
 import { site, telUrl, whatsappUrl } from "@/content/site";
@@ -85,6 +85,7 @@ export function Index() {
   const heroRef = useStayMotion();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeHighlightId, setActiveHighlightId] = useState(site.locationGuide.highlights[0].id);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
@@ -92,6 +93,10 @@ export function Index() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const solid = scrolled || open;
+  const activeHighlight = site.locationGuide.highlights.find((highlight) => highlight.id === activeHighlightId) ?? site.locationGuide.highlights[0];
+  const activeMapUrl = activeHighlight.id === "property"
+    ? site.mapsEmbed
+    : `https://www.google.com/maps?q=${encodeURIComponent(activeHighlight.query)}&output=embed`;
 
   return (
     <div className="font-sans">
@@ -290,13 +295,82 @@ export function Index() {
         </div>
       </section>
 
-      <section id="location" className="mx-auto grid max-w-7xl gap-10 px-5 py-24 md:grid-cols-5 md:items-center">
-        <div className="reveal md:col-span-2">
-          <Eyebrow>Location</Eyebrow><H2>Find us</H2>
-          <p className="mt-4 text-lg text-muted-foreground">{site.name}<br />{site.location}</p>
-          <Button asChild variant="stay"><a href={site.mapsLink} target="_blank" rel="noreferrer" className={`${btn} mt-8 bg-primary text-primary-foreground`}>Open in Google Maps</a></Button>
+      <section id="location" className="bg-secondary py-24">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="reveal max-w-2xl">
+            <Eyebrow>{site.locationGuide.eyebrow}</Eyebrow>
+            <H2>{site.locationGuide.heading}</H2>
+            <p className="mt-4 text-lg text-muted-foreground">{site.locationGuide.intro}</p>
+          </div>
+
+          <div className="mt-12 grid gap-6 lg:grid-cols-[.78fr_1.22fr] lg:items-stretch">
+            <div className="reveal rounded-2xl border bg-card p-4 shadow-soft sm:p-6">
+              <div className="flex items-start gap-3 border-b pb-5">
+                <span className="rounded-full bg-accent/20 p-2 text-accent"><MapPin aria-hidden="true" className="h-5 w-5" /></span>
+                <div>
+                  <p className="font-display text-2xl">{site.name}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{site.location}</p>
+                </div>
+              </div>
+              <div className="mt-5 space-y-2">
+                {site.locationGuide.highlights.map((highlight) => {
+                  const selected = highlight.id === activeHighlight.id;
+                  return (
+                    <button
+                      key={highlight.id}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setActiveHighlightId(highlight.id)}
+                      className={`w-full rounded-xl border p-4 text-left transition duration-300 ${selected ? "border-accent bg-accent/10 shadow-sm" : "border-transparent hover:border-border hover:bg-secondary"}`}
+                    >
+                      <span className="flex items-start justify-between gap-3">
+                        <span className="flex items-start gap-3">
+                          <MapPin aria-hidden="true" className={`mt-0.5 h-4 w-4 shrink-0 ${selected ? "text-accent" : "text-muted-foreground"}`} />
+                          <span>
+                            <span className="block font-semibold">{highlight.name}</span>
+                            <span className="mt-1 block text-xs uppercase tracking-[.12em] text-muted-foreground">{highlight.label}</span>
+                          </span>
+                        </span>
+                        <Navigation aria-hidden="true" className={`mt-0.5 h-4 w-4 shrink-0 transition ${selected ? "rotate-45 text-accent" : "text-muted-foreground/50"}`} />
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <Button asChild variant="stay" className="mt-5 w-full"><a href={site.mapsLink} target="_blank" rel="noreferrer" className={`${btn} w-full bg-primary text-primary-foreground`}><Navigation aria-hidden="true" />Get directions</a></Button>
+            </div>
+
+            <div className="reveal overflow-hidden rounded-2xl border bg-card shadow-soft">
+              <div className="relative h-80 md:h-[29rem]">
+                <iframe key={activeHighlight.id} title={`Map showing ${activeHighlight.name}`} src={activeMapUrl} loading="lazy" className="h-full w-full border-0" />
+                <div className="pointer-events-none absolute left-4 top-4 rounded-lg border border-on-image/20 bg-foreground/75 px-4 py-3 text-on-image shadow-soft backdrop-blur-md">
+                  <p className="text-xs font-semibold uppercase tracking-[.14em] text-accent">Selected place</p>
+                  <p className="mt-1 font-display text-xl">{activeHighlight.name}</p>
+                </div>
+              </div>
+              <div className="grid gap-4 border-t p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6">
+                <div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{activeHighlight.description}</p>
+                  <div className="mt-3 flex flex-wrap gap-4 text-xs font-semibold uppercase tracking-[.1em] text-muted-foreground">
+                    <span className="flex items-center gap-1.5"><RouteIcon aria-hidden="true" className="h-4 w-4 text-accent" />{activeHighlight.distance}</span>
+                    <span className="flex items-center gap-1.5"><Clock3 aria-hidden="true" className="h-4 w-4 text-accent" />{activeHighlight.travelTime}</span>
+                  </div>
+                </div>
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeHighlight.query)}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline decoration-accent decoration-2 underline-offset-4 transition hover:text-accent">Open place</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="reveal mt-6 grid gap-px overflow-hidden rounded-2xl border bg-border md:grid-cols-3">
+            {site.locationGuide.directions.map((direction) => (
+              <div key={direction.step} className="bg-card p-6 md:p-7">
+                <p className="text-xs font-semibold tracking-[.16em] text-accent">{direction.step}</p>
+                <h3 className="mt-3 font-display text-2xl">{direction.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{direction.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <iframe title="Map" src={site.mapsEmbed} loading="lazy" className="reveal h-80 w-full rounded-lg border shadow-soft md:col-span-3 md:h-96" />
       </section>
 
       {/* CONTACT ----------------------------------------------------------- */}
