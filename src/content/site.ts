@@ -33,7 +33,6 @@ export const site = {
   whatsappChatUrl:
     "https://wa.me/918791763547?text=Hello!%20I%20want%20to%20inquire%20about%20booking%20at%20Sunlit%20Valley%20Homestay.",
   mapsLink: "https://maps.app.goo.gl/TGRJPpnK6mFrC2nJA",
-  mapsEmbed: "https://www.google.com/maps?q=Saree+Village,+Uttarakhand&output=embed",
   locationGuide: {
     eyebrow: "Location",
     heading: "Close to the trailhead, easy to find",
@@ -46,7 +45,7 @@ export const site = {
         description: "A quiet base in Saree Village with open valley views and easy access to local trails.",
         distance: "Your destination",
         travelTime: "Saree Village",
-        query: "Sunlit Valley Homestay, Saree Village, Uttarakhand",
+        coordinates: [30.5181, 79.1534] as const,
       },
       {
         id: "deoria-tal",
@@ -55,7 +54,7 @@ export const site = {
         description: "A peaceful high-altitude lake reached by a scenic forest walk from the village area.",
         distance: "Nearby trail",
         travelTime: "Half-day outing",
-        query: "Deoria Tal, Uttarakhand",
+        coordinates: [30.52222, 79.12778] as const,
       },
       {
         id: "chopta",
@@ -64,7 +63,7 @@ export const site = {
         description: "A beautiful drive into alpine meadows and one of the region's best starting points for walks.",
         distance: "Day trip",
         travelTime: "Plan a full day",
-        query: "Chopta, Uttarakhand",
+        coordinates: [30.48318, 79.19661] as const,
       },
       {
         id: "tungnath",
@@ -73,7 +72,7 @@ export const site = {
         description: "Continue beyond Chopta for the famous temple trail and wide Himalayan panoramas.",
         distance: "Day trip",
         travelTime: "Start early",
-        query: "Tungnath Temple, Uttarakhand",
+        coordinates: [30.48944, 79.21528] as const,
       },
     ],
     directions: [

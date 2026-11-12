@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { BedDouble, BedSingle, CalendarDays, Clock3, Flame, MapPin, Menu, Mountain, Navigation, ParkingCircle, PlugZap, Route as RouteIcon, Thermometer, Users, Waves, Wifi, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { InteractiveLocationMap } from "@/components/interactive-location-map";
 import { useStayMotion } from "@/hooks/use-stay-motion";
 import { site, telUrl, whatsappUrl } from "@/content/site";
 
@@ -94,10 +95,6 @@ export function Index() {
   }, []);
   const solid = scrolled || open;
   const activeHighlight = site.locationGuide.highlights.find((highlight) => highlight.id === activeHighlightId) ?? site.locationGuide.highlights[0];
-  const activeMapUrl = activeHighlight.id === "property"
-    ? site.mapsEmbed
-    : `https://www.google.com/maps?q=${encodeURIComponent(activeHighlight.query)}&output=embed`;
-
   return (
     <div className="font-sans">
       <header className={`luxury-nav fixed inset-x-0 top-0 z-50 border-b transition duration-500 ${solid ? "border-border bg-background/85 text-foreground shadow-sm" : "border-on-image/20 bg-foreground/20 text-on-image"}`}>
@@ -342,7 +339,7 @@ export function Index() {
 
             <div className="reveal overflow-hidden rounded-2xl border bg-card shadow-soft">
               <div className="relative h-80 md:h-[29rem]">
-                <iframe key={activeHighlight.id} title={`Map showing ${activeHighlight.name}`} src={activeMapUrl} loading="lazy" className="h-full w-full border-0" />
+                <InteractiveLocationMap highlights={site.locationGuide.highlights} activeHighlightId={activeHighlight.id} onSelect={setActiveHighlightId} />
                 <div className="pointer-events-none absolute left-4 top-4 rounded-lg border border-on-image/20 bg-foreground/75 px-4 py-3 text-on-image shadow-soft backdrop-blur-md">
                   <p className="text-xs font-semibold uppercase tracking-[.14em] text-accent">Selected place</p>
                   <p className="mt-1 font-display text-xl">{activeHighlight.name}</p>
@@ -356,7 +353,7 @@ export function Index() {
                     <span className="flex items-center gap-1.5"><Clock3 aria-hidden="true" className="h-4 w-4 text-accent" />{activeHighlight.travelTime}</span>
                   </div>
                 </div>
-                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeHighlight.query)}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline decoration-accent decoration-2 underline-offset-4 transition hover:text-accent">Open place</a>
+                <a href={`https://www.openstreetmap.org/?mlat=${activeHighlight.coordinates[0]}&mlon=${activeHighlight.coordinates[1]}#map=15/${activeHighlight.coordinates[0]}/${activeHighlight.coordinates[1]}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline decoration-accent decoration-2 underline-offset-4 transition hover:text-accent">Open in OpenStreetMap</a>
               </div>
             </div>
           </div>
