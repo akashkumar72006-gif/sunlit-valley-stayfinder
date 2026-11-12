@@ -22,7 +22,3 @@ export type RoomBooking = {
 };
 
 export const PRICE_PER_PERSON_PER_NIGHT = 900;
-
-export function advanceForGuests(guests: number): number {
-  return guests === 1 ? 500 : 1000;
-}

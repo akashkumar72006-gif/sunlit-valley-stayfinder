@@ -739,8 +739,8 @@ export function Index() {
           <Eyebrow>Book Your Stay</Eyebrow>
           <H2>Plan your mountain stay</H2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Pick your dates and guests to see the live price. Pay a small advance to reserve the
-            room instantly, and pay the rest at check-in.
+            Pick your dates and guests to see the total. Confirm directly — no online payment, you
+            pay at the homestay when you arrive.
           </p>
         </div>
         <div className="reveal">
