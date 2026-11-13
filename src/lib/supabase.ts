@@ -21,11 +21,4 @@ export type RoomBooking = {
   created_at: string;
 };
 
-export type RoomAvailability = {
-  id: string;
-  name: string;
-  max_guests: number;
-  available: boolean;
-};
-
 export const PRICE_PER_PERSON_PER_NIGHT = 900;
