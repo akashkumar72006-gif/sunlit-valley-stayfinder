@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   BedDouble,
@@ -782,6 +783,22 @@ export function Index() {
                 {l}
               </a>
             ))}
+          </nav>
+        </div>
+        <div className="mx-auto max-w-7xl border-t px-5 py-5">
+          <nav
+            aria-label="Policies"
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm"
+          >
+            <Link to="/privacy-policy" className="text-muted-foreground hover:text-accent">
+              Privacy Policy
+            </Link>
+            <Link to="/cancellation-policy" className="text-muted-foreground hover:text-accent">
+              Cancellation Policy
+            </Link>
+            <Link to="/terms-of-service" className="text-muted-foreground hover:text-accent">
+              Terms of Service
+            </Link>
           </nav>
         </div>
         <p className="pb-8 text-center text-xs text-muted-foreground">
